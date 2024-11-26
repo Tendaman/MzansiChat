@@ -42,11 +42,6 @@ cacheDir: ./qodana-cache
 # Uncomment the bootstrap if needed for your project
 #bootstrap: sh ./prepare-environment.sh
 
-# Install required IDE plugins before Qodana execution
-plugins:
-  - id: org.jetbrains.kotlin       # Example: Plugin for Kotlin support
-  - id: com.intellij.spring        # Example: Plugin for Spring support (if relevant to your project)
-
 # Run additional checks (uncomment if needed)
 #additionalChecks:
 #  - name: DetectCopyPasteCode
