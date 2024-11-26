@@ -20,7 +20,7 @@ public class CameraServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Retrieve the base64 image data from the request
         String imageData = request.getParameter("imageData");
 
@@ -30,7 +30,7 @@ public class CameraServlet extends HttpServlet {
             byte[] imageBytes = Base64.getDecoder().decode(base64Image);
 
             // Generate a unique file name
-            String fileName = UUID.randomUUID().toString() + ".png";
+            String fileName = UUID.randomUUID() + ".png";
             String uploadDir = getServletContext().getRealPath("") + File.separator + "uploads";
             File uploadDirFile = new File(uploadDir);
 
