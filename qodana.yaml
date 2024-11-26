@@ -23,8 +23,8 @@ exclude:
       - src/test                  # Ignore test files for unused declaration inspection
   - name: LongMethod               # Disable long-method inspection globally
 
-# Specify the JDK version for the analysis
-projectJDK: 21  # Matches your project’s JDK version
+# Specify the JDK version for the analysis (corrected to string type)
+projectJDK: "21"
 
 # Paths to include/exclude from analysis
 includePaths:
@@ -58,6 +58,3 @@ reportFormats:
   - html                           # Human-readable HTML report
   - json                           # JSON report for programmatic use
   - sarif                          # SARIF report for security tools
-
-# Add any Qodana-specific token as an environment variable in your CI/CD pipeline
-# Example: Add the token in the pipeline configuration (not here for security)
