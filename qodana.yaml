@@ -1,55 +1,6 @@
-#-------------------------------------------------------------------------------#
-#               Qodana analysis is configured by qodana.yaml file               #
-#             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
-#-------------------------------------------------------------------------------#
 version: "1.0"
-
-# Specify Qodana linter for analysis (use a specific version for stability)
 linter: jetbrains/qodana-jvm-community:2024.2
-
-# Specify inspection profile for code analysis
 profile:
-  # Use the recommended inspection profile for comprehensive analysis
   name: qodana.recommended
-
-# Enable specific inspections
 include:
-  - name: CheckDependencyLicenses  # Verifies that dependencies comply with licensing requirements
-
-# Disable specific inspections (example, adjust as needed)
-exclude:
-  - name: UnusedDeclaration        # Disable unused declaration inspection
-    paths:
-      - src/test                  # Ignore test files for unused declaration inspection
-  - name: LongMethod               # Disable long-method inspection globally
-
-# Specify the JDK version for the analysis (corrected to string type)
-projectJDK: "21"
-
-# Paths to include/exclude from analysis
-includePaths:
-  - src/main                      # Focus analysis on the main source code directory
-excludePaths:
-  - src/generated                 # Exclude generated code from analysis
-
-# Specify a results directory for analysis outputs (helpful for CI/CD pipelines)
-resultsDir: ./qodana-results
-
-# Specify a cache directory to speed up re-analysis
-cacheDir: ./qodana-cache
-
-# Execute a shell command before Qodana execution (e.g., preparing dependencies)
-# Uncomment the bootstrap if needed for your project
-#bootstrap: sh ./prepare-environment.sh
-
-# Run additional checks (uncomment if needed)
-#additionalChecks:
-#  - name: DetectCopyPasteCode
-#  - name: CheckDataFlow
-#  - name: CheckUnusedCode
-
-# Output formats for results
-reportFormats:
-  - html                           # Human-readable HTML report
-  - json                           # JSON report for programmatic use
-  - sarif                          # SARIF report for security tools
+  - name: CheckDependencyLicenses
