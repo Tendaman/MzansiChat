@@ -36,7 +36,11 @@ public class CameraServlet extends HttpServlet {
 
             // Create the upload directory if it does not exist
             if (!uploadDirFile.exists()) {
-                uploadDirFile.mkdir();
+                boolean created = uploadDirFile.mkdirs(); // Using mkdirs() to create parent directories if necessary
+                if (!created) {
+                    // Log or handle failure if needed
+                    System.err.println("Failed to create upload directory.");
+                }
             }
 
             // Save the file to the upload directory

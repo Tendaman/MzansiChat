@@ -3,7 +3,6 @@ package org.example.chatapp2;
 import org.example.chatapp2.dao.UserDAO;
 import org.example.chatapp2.util.PasswordUtil;
 
-import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 import java.io.IOException;
@@ -12,7 +11,7 @@ import org.example.chatapp2.model.User;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         String username = request.getParameter("username");
         String email = request.getParameter("email");

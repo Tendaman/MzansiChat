@@ -1,6 +1,8 @@
 package org.example.chatapp2.dao;
 
 import org.example.chatapp2.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ public class UserDAO {
     private static final String DB_URL = "jdbc:mariadb://localhost:3306/chatapp2";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
+    private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
 
     public static void saveUser(User user) {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
@@ -20,7 +23,7 @@ public class UserDAO {
             statement.setString(4, user.password());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error saving user to database: {}", e.getMessage(), e);
         }
     }
 
@@ -40,7 +43,7 @@ public class UserDAO {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error retrieving user with username {}: {}", username, e.getMessage(), e);
         }
         return user;
     }
@@ -60,7 +63,7 @@ public class UserDAO {
                 users.add(new User(name, username, email, password));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error retrieving all users from the database: {}", e.getMessage(), e);
         }
         return users;
     }

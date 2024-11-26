@@ -3,10 +3,10 @@ package org.example.chatapp2.model;
 import java.util.Date;
 
 public class Message {
-    private String sender;
-    private String receiver;
-    private String content;
-    private Date timestamp;
+    private final String sender;
+    private final String receiver;
+    private final String content;
+    private final Date timestamp;
     private boolean isRead;
 
     public Message(String sender, String receiver, String content, Date timestamp, boolean isRead) {

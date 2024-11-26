@@ -6,8 +6,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MessageDAO {
+
+    private static final Logger logger = LoggerFactory.getLogger(MessageDAO.class);
 
     // Method to save the message to the database
     public static void saveMessage(Message message) {
@@ -21,7 +25,7 @@ public class MessageDAO {
             stmt.setBoolean(5, message.isRead());  // Set is_read to false by default
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error saving message to database: {}", e.getMessage(), e);
         }
     }
 
@@ -47,7 +51,7 @@ public class MessageDAO {
                 messages.add(message);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting message from database: {}", e.getMessage(), e);
         }
         return messages;
     }
@@ -91,7 +95,7 @@ public class MessageDAO {
                 messages.add(message);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error getting last message from database: {}", e.getMessage(), e);
         }
         return messages;
     }
@@ -107,7 +111,7 @@ public class MessageDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error counting messages from database: {}", e.getMessage(), e);
         }
         return 0;
     }
@@ -121,7 +125,7 @@ public class MessageDAO {
             stmt.setString(2, receiver);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Error marking message: {}", e.getMessage(), e);
         }
     }
 }
