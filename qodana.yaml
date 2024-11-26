@@ -4,28 +4,60 @@
 #-------------------------------------------------------------------------------#
 version: "1.0"
 
-#Specify inspection profile for code analysis
+# Specify Qodana linter for analysis (use a specific version for stability)
+linter: jetbrains/qodana-jvm-community:2024.2
+
+# Specify inspection profile for code analysis
 profile:
-  name: qodana.starter
+  # Use the recommended inspection profile for comprehensive analysis
+  name: qodana.recommended
 
-#Enable inspections
-#include:
-#  - name: <SomeEnabledInspectionId>
+# Enable specific inspections
+include:
+  - name: CheckDependencyLicenses  # Verifies that dependencies comply with licensing requirements
 
-#Disable inspections
-#exclude:
-#  - name: <SomeDisabledInspectionId>
-#    paths:
-#      - <path/where/not/run/inspection>
+# Disable specific inspections (example, adjust as needed)
+exclude:
+  - name: UnusedDeclaration        # Disable unused declaration inspection
+    paths:
+      - src/test                  # Ignore test files for unused declaration inspection
+  - name: LongMethod               # Disable long-method inspection globally
 
-projectJDK: 21 #(Applied in CI/CD pipeline)
+# Specify the JDK version for the analysis
+projectJDK: 21  # Matches your project’s JDK version
 
-#Execute shell command before Qodana execution (Applied in CI/CD pipeline)
-#bootstrap: sh ./prepare-qodana.sh
+# Paths to include/exclude from analysis
+includePaths:
+  - src/main                      # Focus analysis on the main source code directory
+excludePaths:
+  - src/generated                 # Exclude generated code from analysis
 
-#Install IDE plugins before Qodana execution (Applied in CI/CD pipeline)
-#plugins:
-#  - id: <plugin.id> #(plugin id can be found at https://plugins.jetbrains.com)
+# Specify a results directory for analysis outputs (helpful for CI/CD pipelines)
+resultsDir: ./qodana-results
 
-#Specify Qodana linter for analysis (Applied in CI/CD pipeline)
-linter: jetbrains/qodana-jvm:latest
+# Specify a cache directory to speed up re-analysis
+cacheDir: ./qodana-cache
+
+# Execute a shell command before Qodana execution (e.g., preparing dependencies)
+# Uncomment the bootstrap if needed for your project
+#bootstrap: sh ./prepare-environment.sh
+
+# Install required IDE plugins before Qodana execution
+plugins:
+  - id: org.jetbrains.kotlin       # Example: Plugin for Kotlin support
+  - id: com.intellij.spring        # Example: Plugin for Spring support (if relevant to your project)
+
+# Run additional checks (uncomment if needed)
+#additionalChecks:
+#  - name: DetectCopyPasteCode
+#  - name: CheckDataFlow
+#  - name: CheckUnusedCode
+
+# Output formats for results
+reportFormats:
+  - html                           # Human-readable HTML report
+  - json                           # JSON report for programmatic use
+  - sarif                          # SARIF report for security tools
+
+# Add any Qodana-specific token as an environment variable in your CI/CD pipeline
+# Example: Add the token in the pipeline configuration (not here for security)
